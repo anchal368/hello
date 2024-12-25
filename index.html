@@ -6,7 +6,7 @@
     <title>Document</title>
     <style>
         .button {
-          border:#0a0a0a;
+          border: #0a0a0a;
           color: rgb(255, 255, 255);
           padding: 30px 32px;
           text-align: center;
@@ -15,28 +15,60 @@
           font-size: 20px;
           margin: 5px 20px;
           cursor: pointer;
-          font-style:italic;
+          font-style: italic;
         }
         
         .button1 {background-color: #04AA6D;} /* Green */
-        .button2 {background-color: #ba0000;} /* Blue */
-        </style>        
+        .button2 {background-color: #ba0000;} /* Red */
+    </style>        
 </head>
-<body style ="background-color:rgba(252, 148, 179, 0.5);">
-    <p style="font-family:'arial,sans-serif'; font-size: 20px;">In the story of my days, you are the brightest chapter,
+<body style="background-color: rgba(252, 148, 179, 0.5);">
+    <p style="font-family: 'arial, sans-serif'; font-size: 20px;">
+        In the story of my days, you are the brightest chapter,
         And on January 3rd, I'd love to write a new one with you.
         Let's take a moment, just the two of us,
         To create a memory that lingers like a gentle melody.
     </p>
     <br>
-    <p style="font-family:'italic'; font-size: 30px;">Will you go on a date with me?</p>
-    <button class="button button1" onclick="openNewpage()">YES</button>
-    <a href="https://youtube.com/shorts/798b71UoiFo?si=AcJkC74yYCJDKrVa"><button class="button button2" >NO</button></a>
+    <p style="font-family: 'italic'; font-size: 30px;">Will you go on a date with me?</p>
+
+    <button class="button button1" onclick="trackClick('YES')">YES</button>
+    <a href="https://youtube.com/shorts/798b71UoiFo?si=AcJkC74yYCJDKrVa">
+        <button class="button button2" onclick="trackClick('NO')">NO</button>
+    </a>
+
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script>
-        function openNewpage(){
-            window.open('tel://7976876593')
+        (function(){
+            emailjs.init("arvindkatariya7189@gmail.com"); // Replace with your EmailJS User ID
+        })();
+
+        function trackClick(response) {
+            // Log the result of the click (YES or NO)
+            console.log("User clicked: " + response);
+            
+            // Show an alert to the user with their response
+            alert("You clicked: " + response);
+
+            // Send the response via EmailJS
+            const templateParams = {
+                user_response: response,  // the user's response (YES or NO)
+                user_email: "arvindkatariya127@gmail.com"  // The email address where to send the email
+            };
+
+            // Send email using EmailJS
+            emailjs.send('service_hc2eja1', 'template_ryws5fc', templateParams)
+                .then(function(response) {
+                    console.log('Email sent successfully:', response);
+                }, function(error) {
+                    console.log('Error sending email:', error);
+                });
+
+            // If it's the "YES" button, open the dialer
+            if (response === 'YES') {
+                window.open('tel://7976876593');
+            }
         }
     </script>
-    
 </body>
 </html>
